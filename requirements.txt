@@ -1,0 +1,4 @@
+Flask
+pylint
+requests
+flask-jsonrpc
