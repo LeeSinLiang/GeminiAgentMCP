@@ -1,6 +1,6 @@
-# Gemini Agent MCP Server (JSON-RPC)
+# Gemini Agent MCP Server
 
-This server provides a Model Context Protocol (MCP) interface to the Gemini API, strictly adhering to the JSON-RPC 2.0 specification for communication. It allows AI agents and other systems to call the Gemini model and other tools by interacting with a standardized JSON-RPC endpoint.
+This server provides a Model Context Protocol (MCP) interface to the Gemini CLI. It allows AI agents and other systems to call the Gemini model and other tools by interacting with a standardized JSON-RPC endpoint.
 
 ## Setup
 
@@ -9,8 +9,6 @@ This server provides a Model Context Protocol (MCP) interface to the Gemini API,
     ```bash
     pip install -r requirements.txt
     ```
-
-    This will install `Flask`, `pylint`, `requests`, and `flask-jsonrpc`.
 
 2.  **Install Linters (for `lint_code` tool):**
 
@@ -22,11 +20,7 @@ This server provides a Model Context Protocol (MCP) interface to the Gemini API,
 
 3.  **Set Environment Variables:**
 
-    *   **Gemini API Key:** You need to set the `GEMINI_API_KEY` environment variable to your Gemini API key.
-
-        ```bash
-        export GEMINI_API_KEY="YOUR_API_KEY"
-        ```
+    *   **Ensure you are logged in to Gemini CLI:** Make sure you have the Gemini CLI installed and you are logged in. The server uses the Gemini CLI to call the Gemini model.
 
     *   **GitHub Token:** For the `create_github_issue` and `create_github_pr` tools, you need to set the `GITHUB_TOKEN` environment variable to your GitHub personal access token.
 
