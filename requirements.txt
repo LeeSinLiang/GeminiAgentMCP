@@ -1,4 +1,4 @@
-Flask
 pylint
 requests
-flask-jsonrpc
+fastmcp
+uvicorn
