@@ -2,9 +2,11 @@
 
 import logging
 import subprocess
+from src.mcp_instance import mcp
 
 logger = logging.getLogger(__name__)
 
+@mcp.tool
 def call_gemini(prompt: str, context: str = '') -> dict:
     """Calls the Gemini CLI with a given prompt and context."""
     logger.info("Executing call_gemini with prompt: '%s...'")

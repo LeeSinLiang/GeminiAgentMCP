@@ -4,9 +4,11 @@
 import os
 import logging
 import requests
+from ..mcp_instance import mcp
 
 logger = logging.getLogger(__name__)
 
+@mcp.tool
 def create_github_issue(repo_owner: str, repo_name: str, title: str, body: str = '') -> dict:
     """Creates a new issue in a GitHub repository."""
     logger.info("Executing create_github_issue for repo: %s/%s", repo_owner, repo_name)
@@ -32,6 +34,7 @@ def create_github_issue(repo_owner: str, repo_name: str, title: str, body: str =
         raise RuntimeError(f"Error creating GitHub issue: {exc}") from exc
 
 # pylint: disable=too-many-arguments
+@mcp.tool
 def create_github_pr(
     repo_owner: str, repo_name: str, title: str, head: str, base: str, body: str = ''
 ) -> dict:

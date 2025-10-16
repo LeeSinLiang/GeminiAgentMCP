@@ -5,10 +5,12 @@ import os
 import json
 import logging
 import requests
+from mcp_instance import mcp
 from .utils import is_safe_path
 
 logger = logging.getLogger(__name__)
 
+@mcp.tool
 def analyze_dependencies(file_path: str) -> dict:
     """Analyzes a dependency file and provides a summary of each dependency."""
     logger.info("Executing analyze_dependencies for file: %s", file_path)

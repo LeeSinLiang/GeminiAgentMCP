@@ -2,11 +2,13 @@
 
 import logging
 import subprocess
+from mcp_instance import mcp
 from .gemini import call_gemini
 from .utils import is_safe_path
 
 logger = logging.getLogger(__name__)
 
+@mcp.tool
 def lint_code(file_path: str, language: str) -> dict:
     """Lints a Python or JavaScript file and returns a report of issues."""
     logger.info("Executing lint_code for file: %s (%s)", file_path, language)
@@ -39,6 +41,7 @@ def lint_code(file_path: str, language: str) -> dict:
         logger.error("An unexpected error occurred in lint_code: %s", exc)
         raise RuntimeError(f"An unexpected error occurred: {exc}") from exc
 
+@mcp.tool
 def generate_unit_tests(file_path: str, item_name: str) -> dict:
     """Generates unit tests for a given function or class in a file."""
     logger.info(
