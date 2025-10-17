@@ -1,0 +1,1 @@
+The documentations are auto generated per commit using CommitLM: https://github.com/LeeSinLiang/CommitLM/
