@@ -1,1 +1,4 @@
 .commitlm-config.json
+__pycache__
+docs
+.venv

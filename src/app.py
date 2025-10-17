@@ -18,32 +18,39 @@ logger = logging.getLogger(__name__)
 # Pydantic Models for Tool Outputs
 
 class GeminiResponse(BaseModel):
+    """The response from the Gemini CLI."""
     response: str = Field(..., description="The response from the Gemini CLI.")
 
 class GitHubIssueResponse(BaseModel):
+    """The response from creating a GitHub issue."""
     issue_url: str = Field(..., description="The URL of the created GitHub issue.")
 
 class GitHubPrResponse(BaseModel):
+    """The response from creating a GitHub pull request."""
     pr_url: str = Field(..., description="The URL of the created GitHub pull request.")
 
 class DocstringResponse(BaseModel):
+    """The response from generating a docstring."""
     docstring: str = Field(..., description="The generated docstring.")
 
 class DependencyInfo(BaseModel):
+    """Information about a single dependency."""
     summary: str | None = Field(None, description="A brief summary of the dependency.")
     latest_version: str | None = Field(None, description="The latest available version.")
     license: str | None = Field(None, description="The license of the dependency.")
     error: str | None = Field(None, description="An error message if details could not be fetched.")
 
 class DependencyReport(BaseModel):
+    """A report of the project's dependencies."""
     dependency_report: dict[str, DependencyInfo] = Field(..., description="A report of the project's dependencies.")
 
 class LintingReport(BaseModel):
+    """The report of linting issues."""
     linting_report: str = Field(..., description="The report of linting issues.")
 
 def call_gemini_impl(prompt: str, system_instruction: str = '') -> GeminiResponse:
     """Implementation of the call_gemini tool."""
-    logger.info("Executing call_gemini with prompt: '%s...'")
+    logger.info("Executing call_gemini with prompt: '%s...'", prompt[:50])
     full_prompt = f"{system_instruction}\n\n{prompt}"
     try:
         result = subprocess.run(
@@ -307,10 +314,10 @@ def generate_unit_tests(
     )
     return call_gemini_impl(prompt)
 
-@mcp.resource("greeting://{name}")
-def get_greeting(name: str) -> str:
-    """Get a personalized greeting"""
-    return f"Hello, {name}!"
+@mcp.resource("hello://{name}")
+def check_health(name: str) -> str:
+    """Check server's health and get a greeting!"""
+    return f"Server OK. Hello, {name}!"
 
 if __name__ == "__main__":
     mcp.run(transport="http", host="0.0.0.0", port=8000)
