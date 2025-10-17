@@ -16,7 +16,6 @@ logging.basicConfig(level=logging.INFO,
 logger = logging.getLogger(__name__)
 
 # Pydantic Models for Tool Outputs
-
 class GeminiResponse(BaseModel):
     """The response from the Gemini CLI."""
     response: str = Field(..., description="The response from the Gemini CLI.")
@@ -47,11 +46,15 @@ class DependencyReport(BaseModel):
 class LintingReport(BaseModel):
     """The report of linting issues."""
     linting_report: str = Field(..., description="The report of linting issues.")
+    
+BASE_PROMPT="""
+You are a sub-agent in Gemini CLI, tasked to resolve a specific task and respond back so the main agent can execute based on your response. You are NOT allowed to write files, only read them. Also, you are NOT allowed to run any commands or code. You will be given system_instruction from the main agent and the corresponding prompt.
+"""
 
 def call_gemini_impl(prompt: str, system_instruction: str = '') -> GeminiResponse:
     """Implementation of the call_gemini tool."""
     logger.info("Executing call_gemini with prompt: '%s...'", prompt[:50])
-    full_prompt = f"{system_instruction}\n\n{prompt}"
+    full_prompt = f"{BASE_PROMPT}\n\n<system_instructions>{system_instruction}</system_instructions>\n\n<prompt>{prompt}</prompt>"
     try:
         result = subprocess.run(
             ['gemini', full_prompt], capture_output=True, text=True, check=True, encoding='utf-8')
