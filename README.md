@@ -1,4 +1,4 @@
-# Gemini Agent MCP Server
+# Gemini CLI Agent MCP Server
 
 This project is a Python-based FastMCP server that provides a Model Context Protocol (MCP) interface to the Gemini CLI and other development tools. It allows AI agents and other systems to programmatically call the Gemini model and perform various development tasks.
 
